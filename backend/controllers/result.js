@@ -9,6 +9,11 @@ const fieldSelect = {
     combinaison_gagnant_second_tirage_en_ordre_croissant: 1
 };
 
+exports.getRaw = (req,res) =>{
+    result.find()
+    .then(results => res.status(200).json(results))
+    .catch(err => res.status(400).json(  {err}  ));
+};
 
 exports.getAll = (req,res) =>{
     result.find()
