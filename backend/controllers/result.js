@@ -22,6 +22,18 @@ exports.getAll = (req,res) =>{
     .catch(err => res.status(400).json(  {err}  ));
 };
 
+exports.getId = (req, res) =>{
+    if(req.params.id.length < 8){
+        res.status(400).json({msg: 'L\'id doit avoir 8 chiffres'});
+    }
+
+    let id = parseInt(req.params.id);
+    result.findOne({_id: id})
+    .select(fieldSelect)
+    .then(result => res.status(200).json(result))
+    .catch(err => res.status(400).json(  {err}  ));
+}
+
 exports.getDay = (req,res) =>{
   console.log(req.params.day);
 
@@ -34,5 +46,10 @@ exports.getDay = (req,res) =>{
   day = dayArr.join('');
 
   console.log('---',day,'---');
-  res.send();
+
+  result.find({jour_de_tirage: day})
+  .select(fieldSelect)
+  .then(results => res.status(200).json(results))
+  .catch(err => res.status(400).json(  {err}  ));
+
 };
